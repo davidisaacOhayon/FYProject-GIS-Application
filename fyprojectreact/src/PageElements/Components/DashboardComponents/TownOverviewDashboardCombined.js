@@ -6,12 +6,9 @@ import {useEffect, useState, useMemo} from 'react';
 import { WHOThresholds } from '../Backend/PollutionInfo';
 export default function TownOverviewDashboardCombined({data, YearlyData, pollutant, limit}){
 
-
-    
-
-
     let dateData = null;
 
+    console.log("my limit is ", limit);
     const randomColor = () => {
         const letters = '0123456789ABCDEF';
         let color = '#';
@@ -39,32 +36,6 @@ export default function TownOverviewDashboardCombined({data, YearlyData, polluta
         }
     }, [data])
 
-
-
-
-    // useEffect(() => {
-
-    //     if ( data.length === 0 || data == null){
-    //         return;
-    //     } else {
-    //         // Retrieve the yearly date data from the first entry.  
-
-
-
-    //         let tempData = []
-
-    //         Object.entries(data).map(([town, tData]) => {
-    //             const polData = tData["DisplayData"][0]["data"];
-
-    //             tempData.push({"label": `${town} - ${pollutant}`, "data": polData, "color": randomColor()})
-    //         })
-
- 
-    //         setTownsData(tempData);
-    //     }
-
-
-    // },[data])
 
 
     const renderGraph = () => {
@@ -104,8 +75,8 @@ export default function TownOverviewDashboardCombined({data, YearlyData, polluta
                     >
                     <ChartsReferenceLine
                         x="x" // value where the line hits
-                        axis={limit}         // because threshold is horizontal
-                        stroke="red"      // line color
+                        axis={limit} // because threshold is horizontal
+                        stroke="red" // line color
                         strokeDasharray="4 2"
                         lineStyle={{ stroke: 'red', strokeWidth: 2, strokeDasharray: '5 5' }}  
                     />

@@ -518,7 +518,6 @@ export default function TownOverview({riskRatios, args, overlayRef, setArgs, set
 
     const pollutionOverview = () => {
     
-
         if (!pollutantReadings || !displayData) {
             return (<>
                 <h1 style={{marginTop: "5vh"}}>
@@ -551,9 +550,11 @@ export default function TownOverview({riskRatios, args, overlayRef, setArgs, set
                     ]}
                     
                     series={[
-                        ...displayData !== null ? displayData.map( d => (
-                            d
-                        )) : []]}
+                        ...displayData !== null ? displayData.map( d => ({
+                            ...d,
+                            valueFormatter: (value) => `${Math.round(value * 100) / 100} µg/m³`}
+                        )) : []]
+                    }
                         
                     height={300}
                     

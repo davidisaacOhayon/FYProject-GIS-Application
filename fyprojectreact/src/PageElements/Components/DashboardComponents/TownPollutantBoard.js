@@ -9,19 +9,25 @@ import {RisksContext} from '../../IndexMap.js';
 
 export default function TownPollutantBoard(towns) {
 
+    // Inherited Relative risks data
     const {relativeRiskData} = useContext(RisksContext);
 
+    // Set selected pollutant
     const [pollutant, setPollutant] = useState("SO2");
 
+    // JSON Town readings
     const [townReadings, setTownReadings] = useState(null);
 
     // Average of all town averages
     const [edaData, setEdaData] = useState(null);
 
+    // Is Loading State
     const [isLoading, setLoading] = useState(true);
 
+    // Set Currently Selected disease
     const [disease, setDisease] = useState("RES");
 
+    // JSON Disease data
     const [diseaseData, setDiseaseData] = useState(null);
 
 
@@ -31,7 +37,7 @@ export default function TownPollutantBoard(towns) {
 
     const computeData = async () => {
         
-
+        // If no pollutant is selected
         if (pollutant === null) {
             return;
         }
@@ -62,6 +68,7 @@ export default function TownPollutantBoard(towns) {
     }
     
     const computeAdverseLevel = (pol, avg) => {
+        // Compute levels of pollution severity
         const threshold = WHOThresholds[pol] / 3;
 
         if(avg <= threshold){

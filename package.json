@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@deck.gl/geo-layers": "^9.2.10",
-    "@deck.gl/layers": "^9.2.10",
-    "@deck.gl/react": "^9.2.10",
-    "deck.gl": "^9.2.10",
-    "h3-js": "^4.4.0"
-  }
-}

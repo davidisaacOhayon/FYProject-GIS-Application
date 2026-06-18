@@ -102,3 +102,14 @@ h1{
     left: 500px;
     background-color: red;
 }
+
+.hover-info-box{
+    position: absolute;
+    background-color: rgba(48, 48, 48, 0.8);
+    color: white;
+    padding: 10px;
+    bottom: 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    z-index: 1000;
+}

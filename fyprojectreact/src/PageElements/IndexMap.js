@@ -47,8 +47,10 @@ export default function IndexMap() {
 
   // Current town being hovered
   const [hoveredTown, setHovered] = useState(null);
- 
 
+  // Current town being hovered for legend display
+  const [hoveredTownName, setHoveredTownName] = useState(null);
+ 
 
   ///////////////// ARGUMENT VARIABLES
 
@@ -279,6 +281,8 @@ export default function IndexMap() {
       if (info.object && !overlayArgs){
         // Highlight town
         setHovered(info.object.geometry.coordinates[0])
+        // console.log("Hovered town:", info.object.properties.plain_name);
+        setHoveredTownName(info.object.properties.plain_name);
       }else{
         return; 
       } 
@@ -405,7 +409,9 @@ export default function IndexMap() {
     </RisksContext.Provider>
    
     {townLayerToggled && <Legend title={"Pollution Level Legend"} lim={WHOThresholds[Object.keys(pollutants).find(key => pollutants[key].flag == true)]} pol={Object.keys(pollutants).find(key => pollutants[key].flag == true)}/>}
-
+    {hoveredTown && <div className='hover-info-box'>
+      <h4>Currently Hovering Over: {hoveredTownName}</h4>
+    </div>}
     </>
   );
 }

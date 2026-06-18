@@ -55,6 +55,7 @@ export default function TownClustering({polTown}){
     }
 
     useEffect(() => {
+        
         resetMonthData(); 
         
         axios.post("/getTownExpPolCluster/", {town: polTown, pollutant: pol})

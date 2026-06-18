@@ -197,7 +197,6 @@ class APIServer:
         return clusterCounter
 
     def __cleanDataFrame(self, df):
-
         '''Cleans the dataframe by handling NAN values, converting data types and grouping by date.'''  
         # Convert 'Date' & 'DatePM' column to datetime, coerce errors
         df['Date'] = pd.to_datetime(df['Date'], errors='coerce', dayfirst=True)
@@ -278,6 +277,7 @@ class APIServer:
                 case _: print("Invalid Dataset file found, skipping")
 
     def __getUsableDatasetLength(self, path):
+        '''Checks the number of rows within the dataset file'''
         lengths = []
         for station in self.stations:
             df = pd.read_excel(path, sheet_name=station, na_values=['na'])
@@ -343,6 +343,7 @@ class APIServer:
                 session.commit()
 
     def __handleXLSXFile(self, path):   
+        '''Will Handle XLSX File datasets'''
         with Session(self.engine) as session:
             mainData = {}
 
@@ -477,6 +478,7 @@ class APIServer:
 
         @self.app.post("/getPolDistribution")
         def get_pol_distribution(pollutants : list[str]):
+            '''Retrieves distribution of pollution readings'''
             # Get Mean
             mean = np.mean(pollutants)
 
@@ -769,6 +771,7 @@ class APIServer:
 
         @self.app.get("/getTown/{id}")
         def get_town(id: int, session: Session = Depends(self.get_session)):
+            '''Gets readings of town'''
             row = session.get(Pollutants, id)
             if not row:
                 return {"error": "Not found"}
@@ -878,6 +881,7 @@ class APIServer:
             end_date: date | None = None,
             session: Session = Depends(self.get_session),
         ):
+            '''Retrieves all pollution readings'''
             query = select(Pollutants)
 
             if start_date:
@@ -889,7 +893,7 @@ class APIServer:
 
         @self.app.get("/getAvailableTownNames")
         def get_available_towns(session: Session = Depends(self.get_session)):
-
+            '''Retrieves all town names that have available data'''
             query = select(Pollutants.town).distinct()
             return session.exec(query).all()
 
