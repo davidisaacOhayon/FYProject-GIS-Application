@@ -140,7 +140,7 @@ export default function TownClustering({polTown}){
             <h2>Statistics for {pol}</h2>
             <hr></hr>
             <br></br>
-            <h3> {pol} - {exp[page]} in {polTown} | Range between {data[page]["min"]}µg/m³ and {data[page]["max"]}µg/m³.</h3>
+            {data[page] !== undefined && <h3> {pol} - {exp[page]} in {polTown} | Range between {data[page]["min"]}µg/m³ and {data[page]["max"]}µg/m³.</h3>}
             <p> Displays Number of days concentrations were recorded at various exposure levels.</p>
             <br></br>
             <button className={"btn"} onClick={() => setPage(2)}>HighExp</button>
@@ -151,7 +151,10 @@ export default function TownClustering({polTown}){
                     return <button className={pol == poll? "btn active" : "btn"} onClick={() => setPol(poll)}>{poll}</button>
                 })}
             </ol>
-            {data && renderPage() }
+            {data && data[page] !== undefined && renderPage() }
+            {data[page] === undefined && <h3>No Data Available for {pol} in {polTown} at this exposure level.</h3>}
+            <br></br>
+            
             <h2>Details</h2>
             <hr></hr>
 

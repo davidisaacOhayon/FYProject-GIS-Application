@@ -1,7 +1,9 @@
 *{
     font-family: "Roboto", sans-serif;
 }
-
+body{
+    overflow-y: hidden;
+}
 h1{
     position: relative;
     z-index: 500;

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { LineChart } from '@mui/x-charts';
 import { ChartsReferenceLine } from '@mui/x-charts/ChartsReferenceLine';
 import {useEffect, useState, useMemo} from 'react';
-import { WHOThresholds } from '../Backend/PollutionInfo';
+import { WHOThresholds, pollutantColors } from '../Backend/PollutionInfo';
 export default function TownOverviewDashboardCombined({data, YearlyData, pollutant, limit}){
 
     let dateData = null;
@@ -58,8 +58,10 @@ export default function TownOverviewDashboardCombined({data, YearlyData, polluta
                     ]}
                     series={
                         [
-                            ...townsData !== null ? townsData.map( d => (
-                                d
+                            ...townsData !== null ? townsData.map( d => ({
+                                ...d,
+                            valueFormatter: (value) => `${value} µg/m³`
+                            }
                             )) : []
                         ]   
                     }
@@ -74,11 +76,12 @@ export default function TownOverviewDashboardCombined({data, YearlyData, polluta
                     }}
                     >
                     <ChartsReferenceLine
-                        x="x" // value where the line hits
-                        axis={limit} // because threshold is horizontal
-                        stroke="red" // line color
-                        strokeDasharray="4 2"
-                        lineStyle={{ stroke: 'red', strokeWidth: 2, strokeDasharray: '5 5' }}  
+                        key={pollutant}
+                        y={WHOThresholds[pollutant] || 0 }        
+                        label={`WHO Yearly (${WHOThresholds[pollutant]})`}
+                        labelAlign="end"
+                        labelStyle={{fill: "white", fontSize: 12, fontWeight: 'bold'}}
+                        lineStyle={{ stroke: pollutantColors[pollutant], strokeWidth: 2, strokeDasharray: '5 5' }} // optional dashed style
                     />
                     </LineChart>
                 </Box>

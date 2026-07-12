@@ -1,6 +1,8 @@
 
 import Box from '@mui/material/Box';
 import { LineChart } from '@mui/x-charts';
+import { ChartsReferenceLine } from '@mui/x-charts/ChartsReferenceLine';
+import { pollutantColors, WHOThresholds } from '../Backend/PollutionInfo';
 import {useEffect} from 'react';
 export default function TownOverviewDashboard({town, data, dateData}){
 
@@ -25,8 +27,10 @@ export default function TownOverviewDashboard({town, data, dateData}){
                         }
                     ]}
                     series={[
-                        ...data !== null ? data.map( d => (
-                            d
+                        ...data !== null ? data.map( d => ({
+                            ...d,
+                        valueFormatter: (value) => `${value} µg/m³`
+                        }
                         )) : []
                     ]}
                     height={300}
@@ -43,7 +47,16 @@ export default function TownOverviewDashboard({town, data, dateData}){
                             fontSize: '25px'
                         }
                     }}
+
+
+                  
+
+                    
+                                        
                     />
+                                                                
+
+                    
                 </Box>
         </div>
     )

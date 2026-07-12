@@ -2,8 +2,9 @@
 .pollution-cluster-div{
     width: 100%;
     height: auto;
-    min-height: clamp(200vh, 200vh, 210vh);
+    min-height: clamp(100vh, 100vh, 190vh);
     padding: 20px;
+    margin-bottom: 200px;
     box-sizing: border-box;
 }
 .range-coverage{
@@ -13,10 +14,10 @@
 .eda-data-container{
     padding: 10px;
     width: 100%;
-    height: auto;
-    min-height: 55vh;
+    height: fit-content;
+    /* min-height: 55vh; */
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     gap: 10px;
 }
 .eda-data-div{
